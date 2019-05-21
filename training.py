@@ -126,7 +126,7 @@ for iteration in range(last_iteration, num_training_iterations):
     if elapsed_since_last_log > log_every_seconds:
         last_log_time = the_time
         feed_dict = {input_ph: input_graphs, target_ph: target_graphs}
-
+        raw_graphs = [graph]
         test_values = sess.run({'target': target_ph,
                                'loss': loss_op_ge,
                                'outputs': output_ops_ge},
