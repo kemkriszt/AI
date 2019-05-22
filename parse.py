@@ -21,6 +21,9 @@ import sys
 import pickle
 from time import time
 from normalize import normalize
+from utils import dict_to_graph
+from utils import add_shortest_path
+import numpy as np
 
 if len(sys.argv) < 3:
 	print("Provide a file name and a normalization method")
@@ -62,6 +65,13 @@ try:
 	    "senders": senders,
 	    "receivers": receivers
 	}
+
+	seed = 2
+	rand = np.random.RandomState(seed=seed)
+	print("Convert dictionary to graph")
+	graph = dict_to_graph(graph)
+	print("Shortest path")
+	graph = add_shortest_path(rand, graph)
 
 	#save data to file
 	if len(sys.argv) > 3:

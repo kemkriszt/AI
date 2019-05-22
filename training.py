@@ -27,17 +27,17 @@ if len(sys.argv) < 2:
     exit()
 
 with open(sys.argv[1], 'rb') as fp:
-    g = pickle.load(fp)
+    graph = pickle.load(fp)
 
-graph = dict_to_graph(g)
-graph = add_shortest_path(rand, graph)
+seed = 2
+rand = np.random.RandomState(seed=seed)
+
 (input_graph, target_graph) = graph_to_input_target(graph)
 (input_ph, target_ph) = create_placeholders(input_graph, target_graph)
 
 tf.reset_default_graph()
 
-seed = 2
-rand = np.random.RandomState(seed=seed)
+
 
 num_processing_steps_tr = 10
 num_processing_steps_ge = 10
