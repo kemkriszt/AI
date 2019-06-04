@@ -1,4 +1,12 @@
+import collections
+import itertools
 import networkx as nx
+from graph_nets import graphs
+from graph_nets import utils_np
+from graph_nets import utils_tf
+from graph_nets.demos import models
+import numpy as np
+import tensorflow as tf
 
 DISTANCE_WEIGHT_NAME = "weight"
 
@@ -114,7 +122,7 @@ def graph_to_input_target(graph):
   def create_feature(attr, fields):
     return np.hstack([np.array(attr[field], dtype=float) for field in fields])
 
-  input_node_fields = ("pos", "weight", "start", "end")
+  input_node_fields = ("pos", "start", "end")
   input_edge_fields = ("distance",)
   target_node_fields = ("solution",)
   target_edge_fields = ("solution",)
@@ -414,6 +422,11 @@ class GraphPlotter(object):
     self._ax.set_title("Solution length: {}".format(self.solution_length))
     return node_collections
 
+def get_edges_from_list(list):
+  edges = []
+  for e in list:
+    edges.append([e])
+  return edges
 
 
 

@@ -20,9 +20,10 @@ import tensorflow as tf
 import sys
 import pickle
 from time import time
-from normalize import normalize
+from normalize import scale
 from utils import dict_to_graph
 from utils import add_shortest_path
+from utils import get_edges_from_list
 import numpy as np
 
 if len(sys.argv) < 3:
@@ -43,7 +44,7 @@ try:
 
 	for line in lines:
 		comps = line.strip().split(' ')
-		edges.append([normalize(float(comps[3]),normMethod)])
+		edges.append(float(comps[3]))
 		senders.append(int(comps[1]))
 		receivers.append(int(comps[2]))
 
@@ -57,8 +58,12 @@ try:
 		#if comps[0] == '10':
 		#	break
 
+	
 	nodes = list(range(lastNodeID+1))
-
+	# Scale the data
+	edges = scale(edges, normMethod)
+	
+	edges = get_edges_from_list(edges)
 	graph = {
 	    "nodes": nodes,
 	    "edges": edges,
